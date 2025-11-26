@@ -20,10 +20,10 @@ function selectData() {
 
 function updateData() {
     // read all records into an array
-    const records = Deno.readTextFileSync('crappydb.csv').split('\r\n');
+    const records = Deno.readTextFileSync('crappydb.csv').split('\n');
 
     Deno.writeTextFileSync('crappydb.csv', '');
-    for (let i = 0; i < records.length; i++) {
+    for (let i = 0; i < records.length - 1; i++) {
         const [id, first, _last] = records[i].split(',');
         if (id === 'W111222') {
             const updated = `${id},${first},smith\n`;
