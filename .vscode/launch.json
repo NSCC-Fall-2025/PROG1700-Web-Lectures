@@ -1,0 +1,45 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "request": "launch",
+            "name": "Run Deno with Arguments",
+            "type": "node",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "deno",
+            "runtimeArgs": [
+                "run",
+                "--inspect-brk",
+                "--allow-all",
+                "${file}",
+            ],
+            "args": [
+                "purpleheart"
+            ],
+            "attachSimplePort": 9229
+        },
+                {
+            "request": "launch",
+            "name": "Run Deno with 2 Arguments",
+            "type": "node",
+            "console": "integratedTerminal",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "deno",
+            "runtimeArgs": [
+                "run",
+                "--inspect-brk",
+                "--allow-all",
+                "${file}",
+            ],
+            "args": [
+                "purpleheart",
+                "santa"
+            ],
+            "attachSimplePort": 9229
+        }
+    ]
+}
