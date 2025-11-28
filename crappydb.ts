@@ -1,5 +1,5 @@
 
-function insertData() {
+export function insertData() {
 
     const records: [string, string, string][] = [
         ['W111222', 'jane', 'doe'],
@@ -14,11 +14,19 @@ function insertData() {
     }
 }
 
-function selectData() {
+export function selectData() {
+    // read all records into an array
+    const records = Deno.readTextFileSync('crappydb.csv').split('\n');
 
+    for (let i = 0; i < records.length - 1; i++) {
+        const [id, first, last] = records[i].split(',');
+        if (first[0] === 'j') {
+            console.log(`ID: ${id}, Name: ${first} ${last}`);
+        }
+    }
 }
 
-function updateData() {
+export function updateData() {
     // read all records into an array
     const records = Deno.readTextFileSync('crappydb.csv').split('\n');
 
@@ -33,10 +41,45 @@ function updateData() {
         }
     }
 }
+export function updateData2() {
+    // read all records into an array
+    const records = Deno.readTextFileSync('crappydb.csv').split('\n');
 
-function deleteData() {
+    for (let i = 0; i < records.length - 1; i++) {
+        const [id, first, _last] = records[i].split(',');
+        if (id === 'W222333') {
+            records[i] = `${id},${first},smith`;
+        }
+    }
 
+    // join all records into a single block of text to write
+    const contents = records.join('\n');
+    Deno.writeTextFileSync('crappydb.csv', contents);
 }
 
-insertData();
-updateData();
+export function deleteData() {
+
+    const recordsToDelete: string[] = ['W111222', 'W222333', 'W333444'];
+
+    // read all records into an array
+    const records = Deno.readTextFileSync('crappydb.csv').split('\n');
+
+    let recordsToWrite = [];
+    for (let i = 0; i < records.length - 1; i++) {
+        const [id, first, last] = records[i].split(',');
+        if (!recordsToDelete.includes(id)) {
+            recordsToWrite.push(`${id},${first},${last}`);
+        }
+    }
+
+    // join all records into a single block of text to write
+    const contents = recordsToWrite.join('\n') + '\n';
+    Deno.writeTextFileSync('crappydb.csv', contents);
+}
+
+if (import.meta.main) {
+    deleteData();
+    insertData();
+    updateData2();
+    selectData();
+}
